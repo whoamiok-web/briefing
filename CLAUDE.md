@@ -37,4 +37,4 @@
 5. 출처 URL을 반드시 링크로 표시한다.
 6. 기존 briefings/ 폴더의 HTML 파일과 동일한 스타일(CSS 인라인)을 사용한다.
 7. 완성된 HTML 파일을 `briefings/YYYY-MM-DD.html`로 저장하고, `main` 브랜치에 커밋·푸시한다.
-8. 커밋·푸시 완료 후 KakaotalkChat-MemoChat 도구를 사용하여 보고서 링크를 카카오톡 나에게 보내기로 전송한다. 메시지 형식: `[CIS 브리핑] YYYY년 MM월 DD일\nhttps://htmlpreview.github.io/?https://github.com/whoamiok-web/briefing/blob/main/briefings/YYYY-MM-DD.html`
+8. 커밋·푸시 완료 후 KakaotalkChat-MemoChat 도구를 사용하여 보고서 링크를 카카오톡 나에게 보내기로 전송한다. 메시지 형식: `[CIS 브리핑] YYYY년 MM월 DD일\nhttps://whoamiok-web.github.io/briefing/briefings/YYYY-MM-DD.html`
