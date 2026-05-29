@@ -1,0 +1,79 @@
+name: Send Briefing Email
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'briefings/*.html'
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Get briefing file info
+        id: briefing
+        run: |
+          # 변경된 briefing HTML 파일 찾기
+          CHANGED_FILE=$(git diff --name-only HEAD~1 HEAD -- 'briefings/*.html' | head -1)
+          if [ -z "$CHANGED_FILE" ]; then
+            echo "No briefing file changed"
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "file=$CHANGED_FILE" >> $GITHUB_OUTPUT
+          echo "skip=false" >> $GITHUB_OUTPUT
+
+          # 파일명에서 날짜 추출 (briefings/2026-05-29.html → 2026-05-29)
+          DATE=$(basename "$CHANGED_FILE" .html)
+          echo "date=$DATE" >> $GITHUB_OUTPUT
+
+          # 날짜 한국어 형식 (2026-05-29 → 2026년 05월 29일)
+          YEAR=$(echo $DATE | cut -d'-' -f1)
+          MONTH=$(echo $DATE | cut -d'-' -f2)
+          DAY=$(echo $DATE | cut -d'-' -f3)
+          echo "date_kr=${YEAR}년 ${MONTH}월 ${DAY}일" >> $GITHUB_OUTPUT
+
+          # GitHub Pages URL
+          URL="https://whoamiok-web.github.io/briefing/briefings/${DATE}.html"
+          echo "url=$URL" >> $GITHUB_OUTPUT
+
+      - name: Send email
+        if: steps.briefing.outputs.skip != 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: whoamiok@gmail.com
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "[CIS 브리핑] ${{ steps.briefing.outputs.date_kr }}"
+          to: khlee@cischem.co.kr,hgil@cischem.co.kr
+          cc: whoamiok@gmail.com
+          from: "CIS 브리핑 <whoamiok@gmail.com>"
+          html_body: |
+            <html>
+            <body style="font-family: 'Malgun Gothic', sans-serif; color: #333;">
+              <h2 style="color: #1a3a5c;">[CIS 브리핑] ${{ steps.briefing.outputs.date_kr }}</h2>
+              <p>안녕하세요,</p>
+              <p>이차전지 재활용 업계 동향 브리핑이 업데이트되었습니다.</p>
+              <p>
+                <a href="${{ steps.briefing.outputs.url }}"
+                   style="display:inline-block; padding:12px 24px; background:#1a3a5c; color:#fff; text-decoration:none; border-radius:4px; font-size:14px;">
+                  📄 브리핑 보기
+                </a>
+              </p>
+              <p style="font-size:12px; color:#888;">
+                ${{ steps.briefing.outputs.url }}
+              </p>
+              <hr style="border:none; border-top:1px solid #eee; margin-top:24px;">
+              <p style="font-size:11px; color:#aaa;">CIS케미칼 자동 브리핑 시스템</p>
+            </body>
+            </html>
