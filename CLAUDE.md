@@ -29,7 +29,8 @@
 1. **뉴스 검색** — 위 9개 회사 각각의 당일 최신 뉴스를 WebSearch로 수집
 2. **HTML 브리핑 생성** — `briefings/YYYY-MM-DD.html` 파일 작성
 3. **GitHub 커밋** — `briefing: YYYY-MM-DD 업계 동향 보고` 메시지로 push
-4. **카카오톡 알림** — PlayMCP로 '나에게 보내기' URL 전송
+4. **카카오톡 알림** — PlayMCP로 '나에게 보내기' 아래 URL 전송
+   - URL 형식: `https://whoamiok-web.github.io/briefing/briefings/YYYY-MM-DD.html`
 
 ### 출력 파일 위치
 ```
