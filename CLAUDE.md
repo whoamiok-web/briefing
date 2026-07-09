@@ -37,6 +37,12 @@
    - **당일 발행 기사만 포함** — 하루 이상 지난 기사는 제외
    - 오늘 기사가 없으면 `<p>오늘 신규 뉴스 없음</p>` 출력
    - 이차전지 업계 동향 검색 키워드 예시: "이차전지 재활용", "배터리 리사이클링", "리튬 회수", "흑연 음극재", "양극재 업계" 등
+   - **metal.com 뉴스 검색** — WebSearch로 아래 키워드별 당일 기사를 수집하여 이차전지 업계 동향 섹션에 포함
+     - `site:news.metal.com 양극재`
+     - `site:news.metal.com 전구체`
+     - `site:news.metal.com MHP`
+     - `site:news.metal.com 탄산리튬`
+     - `site:news.metal.com 수산화리튬`
 2. **HTML 브리핑 생성** — `briefings/YYYY-MM-DD.html` 파일 작성
 3. **GitHub 커밋** — `briefing: YYYY-MM-DD 업계 동향 보고` 메시지로 push
 4. **카카오톡 알림** — PlayMCP로 '나에게 보내기' 아래 URL 전송
