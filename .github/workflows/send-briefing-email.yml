@@ -55,7 +55,7 @@ jobs:
           username: whoamiok@gmail.com
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
           subject: "[CIS 브리핑] ${{ steps.briefing.outputs.date_kr }}"
-          to: khlee@cischem.co.kr,hgil@cischem.co.kr
+          to: khlee@cischem.co.kr,hgil@cischem.co.kr,seejinlee@cischem.co.kr,whgotjd123@cischem.co.kr,jy1028@cischem.co.kr,jmkim@cischem.co.kr,mrpark@cischem.co.kr,wonsh96@cischem.co.kr
           cc: whoamiok@gmail.com
           from: "CIS 브리핑 <whoamiok@gmail.com>"
           html_body: |
